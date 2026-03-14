@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vuon thong minh</title>
+</head>
+
+<body>
+
+<h1>🌱 Vườn thông minh</h1>
+
+<p>Độ ẩm đất: <span id="soil">loading...</span></p>
+
+<script>
+
+async function loadData(){
+
+let response = await fetch("https://io.adafruit.com/api/v2/HuyChung/feeds/soil/data/last");
+let data = await response.json();
+
+document.getElementById("soil").innerText = data.value;
+
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
