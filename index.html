@@ -2,14 +2,18 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+
 <title>Vườn Thông Minh</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 
 body{
-font-family: Arial;
+font-family:Arial;
+background:#f2f2f2;
 text-align:center;
-background:#f5f5f5;
 }
 
 h1{
@@ -20,24 +24,29 @@ margin-top:40px;
 display:flex;
 justify-content:center;
 gap:30px;
-margin-top:40px;
+margin-top:50px;
 }
 
 .card{
-width:220px;
-padding:25px;
-border-radius:12px;
+width:250px;
+padding:30px;
+border-radius:15px;
 color:white;
-font-size:22px;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 .temp{background:#ff4d4d;}
 .soil{background:#3c8dbc;}
 .light{background:#f39c12;}
 
+.icon{
+font-size:40px;
+margin-bottom:10px;
+}
+
 .value{
-font-size:32px;
-margin-top:10px;
+font-size:40px;
+font-weight:bold;
 }
 
 </style>
@@ -51,18 +60,47 @@ margin-top:10px;
 <div class="container">
 
 <div class="card temp">
-🌡 Nhiệt độ
-<div class="value" id="temp">--</div>
+
+<div class="icon">
+<i class="fa-solid fa-temperature-three-quarters"></i>
 </div>
+
+<h2>Nhiệt độ</h2>
+
+<div class="value">
+<span id="temp">--</span> °C
+</div>
+
+</div>
+
 
 <div class="card soil">
-💧 Độ ẩm đất
-<div class="value" id="soil">--</div>
+
+<div class="icon">
+<i class="fa-solid fa-droplet"></i>
 </div>
 
+<h2>Độ ẩm đất</h2>
+
+<div class="value">
+<span id="soil">--</span> %
+</div>
+
+</div>
+
+
 <div class="card light">
-☀ Ánh sáng
-<div class="value" id="light">--</div>
+
+<div class="icon">
+<i class="fa-solid fa-sun"></i>
+</div>
+
+<h2>Ánh sáng</h2>
+
+<div class="value">
+<span id="light">--</span>
+</div>
+
 </div>
 
 </div>
