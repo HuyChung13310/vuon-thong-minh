@@ -2,34 +2,34 @@
 <html>
 
 <head>
+
 <title>Vườn thông minh</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 body{
-font-family: Arial;
-background:#f0f2f5;
+font-family:Arial;
 text-align:center;
+background:url("https://images.unsplash.com/photo-1464226184884-fa280b87c399");
+background-size:cover;
+color:white;
 }
 
 .container{
 display:flex;
 justify-content:center;
 gap:20px;
-margin-top:40px;
+margin-top:30px;
 }
 
 .card{
-width:180px;
+width:200px;
 padding:20px;
-border-radius:10px;
-color:white;
-font-size:20px;
+border-radius:15px;
+background:rgba(0,0,0,0.6);
 }
-
-.temp{background:#ff4d4d;}
-.humi{background:#3498db;}
-.light{background:#f39c12;}
 
 </style>
 
@@ -41,38 +41,69 @@ font-size:20px;
 
 <div class="container">
 
-<div class="card temp">
-🌡 Nhiệt độ
-<br><span id="temp">--</span> °C
-</div>
-
-<div class="card humi">
+<div class="card">
 💧 Độ ẩm đất
-<br><span id="soil">--</span> %
+<h2 id="soil">--</h2>
 </div>
 
-<div class="card light">
+<div class="card">
 ☀️ Ánh sáng
-<br><span id="light">--</span>
+<h2 id="light">--</h2>
+</div>
+
+<div class="card">
+🌿 Trạng thái đất
+<h2 id="status">--</h2>
 </div>
 
 </div>
+
+<br>
+
+<canvas id="chart" width="400" height="200"></canvas>
 
 <script>
+
+let soilHistory=[]
 
 async function getData(){
 
 let soil = await fetch("https://io.adafruit.com/api/v2/HuyChung/feeds/do-am/data/last");
-let soilData = await soil.json();
-
-document.getElementById("soil").innerText = soilData.value;
+let soilData = await soil.json()
 
 let light = await fetch("https://io.adafruit.com/api/v2/HuyChung/feeds/anh-sang/data/last");
-let lightData = await light.json();
+let lightData = await light.json()
 
-document.getElementById("light").innerText = lightData.value;
+let soilValue = soilData.value
+
+document.getElementById("soil").innerText=soilValue+" %"
+document.getElementById("light").innerText=lightData.value
+
+soilHistory.push(soilValue)
+
+if(soilValue < 30){
+document.getElementById("status").innerText="Đất khô"
+}
+else{
+document.getElementById("status").innerText="Đất tốt"
+}
+
+chart.update()
 
 }
+
+const ctx=document.getElementById("chart")
+
+const chart=new Chart(ctx,{
+type:"line",
+data:{
+labels:[],
+datasets:[{
+label:"Độ ẩm đất",
+data:soilHistory
+}]
+}
+})
 
 setInterval(getData,5000)
 
